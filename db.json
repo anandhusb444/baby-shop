@@ -1,0 +1,151 @@
+{
+  "users": [
+    {
+      "id": "c2e0",
+      "name": "anandhu",
+      "email": "anandhusb220@gmail.com",
+      "password": "A12345678",
+      "confirmpassword": "A12345678",
+      "cart": [
+        {
+          "id": "1",
+          "image": "https://cdn.pixelspray.io/v2/black-bread-289bfa/XUefL6/wrkr/t.resize(h:490,w:490)/data/mothercare/24dec2021/ZC353-2.jpg",
+          "title": "Sleepsuit for boys",
+          "description": "Boys Full Sleeves Sleepsuit Christmas Design-Navy",
+          "price": 1000,
+          "quantity": 1,
+          "category": "boys"
+        },
+        {
+          "id": "2",
+          "image": "https://cdn.pixelspray.io/v2/black-bread-289bfa/XUefL6/wrkr/t.resize(h:490,w:490)/data/mothercare/24dec2021/ZA087-2.jpg",
+          "title": "Bodysuits for girls",
+          "description": "Girls Full Sleeves Bodysuit Bee Print - Pack Of 3 - Multicolor",
+          "price": 800,
+          "quantity": 1,
+          "category": null
+        }
+      ]
+    },
+    {
+      "id": "3528",
+      "name": "adith",
+      "email": "adith@123gmail.com",
+      "password": "Adith1234567",
+      "confirmpassword": "Adith1234567",
+      "cart": []
+    },
+    {
+      "id": "de91",
+      "name": "nandhu",
+      "email": "nandhu@123gmail.com",
+      "password": "Nandhu12345",
+      "confirmpassword": "Nandhu12345"
+    },
+    {
+      "id": "8671",
+      "name": "Haritha",
+      "email": "harithasb@123gmail.com",
+      "password": "Haritha12345",
+      "confirmpassword": "Haritha12345"
+    },
+    {
+      "id": "515a",
+      "name": "sharan",
+      "email": "sharan@123gmail.com",
+      "password": "S12345678",
+      "confirmpassword": "S12345678"
+    }
+  ],
+  "products": [
+    {
+      "id": "1",
+      "image": "https://cdn.pixelspray.io/v2/black-bread-289bfa/XUefL6/wrkr/t.resize(h:490,w:490)/data/mothercare/24dec2021/ZC353-2.jpg",
+      "title": "Sleepsuit for boys",
+      "description": "Boys Full Sleeves Sleepsuit Christmas Design-Navy",
+      "price": 1000,
+      "quantity": 1,
+      "category": "boys"
+    },
+    {
+      "id": "2",
+      "image": "https://cdn.pixelspray.io/v2/black-bread-289bfa/XUefL6/wrkr/t.resize(h:490,w:490)/data/mothercare/24dec2021/ZA087-2.jpg",
+      "title": "Bodysuits for girls",
+      "description": "Girls Full Sleeves Bodysuit Bee Print - Pack Of 3 - Multicolor",
+      "price": 800,
+      "quantity": 1,
+      "category": null
+    },
+    {
+      "id": "3",
+      "image": "https://cdn.pixelspray.io/v2/black-bread-289bfa/XUefL6/wrkr/t.resize(h:490,w:490)/data/mothercare/24dec2021/ZB236-2.jpg",
+      "title": "Hooded Sweatshirt unisex",
+      "description": "Girls Full Sleeves Hooded Sweatshirt 3D Bunny Ear Details - Grey",
+      "price": 2100,
+      "quantity": 1,
+      "category": null
+    },
+    {
+      "id": "4",
+      "image": "https://cdn.pixelspray.io/v2/black-bread-289bfa/XUefL6/wrkr/t.resize(h:490,w:490)/data/mothercare/24dec2021/ZB726-2.jpg",
+      "title": " Cardigan Frill",
+      "description": "Girls Full Sleeves Striped Cardigan Frill Detail - Multicolor",
+      "price": 1200,
+      "quantity": 1,
+      "category": "girls"
+    },
+    {
+      "id": "5",
+      "image": "https://cdn.pixelspray.io/v2/black-bread-289bfa/XUefL6/wrkr/t.resize(h:490,w:490)/data/mothercare/22mar2022/410262802001-2.jpg",
+      "title": "Top for girls",
+      "description": "By Hamleys Girls Short Sleeves T-Shirt Floral Print-White",
+      "price": 1500,
+      "quantity": 1,
+      "category": "girls"
+    },
+    {
+      "id": "6",
+      "image": "https://cdn.pixelspray.io/v2/black-bread-289bfa/XUefL6/wrkr/t.resize(h:490,w:490)/data/mothercare/23-12-2021/ZA084-2.jpg",
+      "title": "Bodysuits pack of 6",
+      "description": "Girls Full Sleeves Bodysuit Bee Print - Pack Of 6 - Multicolor",
+      "price": 1000,
+      "quantity": 1,
+      "category": null
+    },
+    {
+      "id": "7",
+      "image": "https://cdn.pixelspray.io/v2/black-bread-289bfa/XUefL6/wrkr/t.resize(h:490,w:490)/data/mothercare/13dec2021/NBAAAC01-2.jpg",
+      "title": "Hamleys Hats Boys",
+      "description": "H By Hamleys Boys Hats 3D Ear Details-Pack Of 2-Multicolor",
+      "price": 500,
+      "quantity": 1
+    },
+    {
+      "id": "8",
+      "image": "https://cdn.pixelspray.io/v2/black-bread-289bfa/XUefL6/wrkr/t.resize(h:600,w:600)/data/mothercare/15June2020_new_images/VB223YELLOW_1.jpg",
+      "title": "T-shirt for boys",
+      "description": "Boys Half Sleeves T-Shirt Dino Print - Yellow",
+      "price": 2300,
+      "quantity": 1,
+      "category": "boys"
+    },
+    {
+      "id": "9",
+      "image": "https://cdn.pixelspray.io/v2/black-bread-289bfa/XUefL6/wrkr/t.resize(h:490,w:490)/data/mothercare/24dec2021/ZA388-2.jpg",
+      "title": "Cardigan Frill yellow",
+      "description": "Girls Full Sleeves Striped Cardigan Frill Detail - Multicolor",
+      "price": 2300,
+      "quantity": 1,
+      "category": "girls"
+    },
+    {
+      "id": "10",
+      "image": "https://cdn.pixelspray.io/v2/black-bread-289bfa/XUefL6/wrkr/t.resize(h:490,w:490)/data/mothercare/12102022img/410263823001_2.jpg",
+      "title": "Top for girls",
+      "description": "By Hamleys Girls Short Sleeves T-Shirt Floral Pattern line",
+      "price": 2300,
+      "quantity": 1,
+      "category": "girls"
+    }
+  ]
+}
