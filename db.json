@@ -41,7 +41,7 @@
       "email": "nandhu@123gmail.com",
       "password": "Nandhu12345",
       "confirmpassword": "Nandhu12345",
-      "cart":[]
+      "cart": []
     },
     {
       "id": "8671",
@@ -49,7 +49,7 @@
       "email": "harithasb@123gmail.com",
       "password": "Haritha12345",
       "confirmpassword": "Haritha12345",
-      "cart":[]
+      "cart": []
     },
     {
       "id": "515a",
@@ -57,7 +57,7 @@
       "email": "sharan@123gmail.com",
       "password": "S12345678",
       "confirmpassword": "S12345678",
-      "cart":[]
+      "cart": []
     }
   ],
   "products": [
@@ -71,22 +71,19 @@
       "category": "boys"
     },
     {
-      "id": "2",
+      "title": "Baby suits for kids",
+      "description": "Baby suits pack of four ",
+      "category": "girsl",
+      "quantity": "1",
       "image": "https://cdn.pixelspray.io/v2/black-bread-289bfa/XUefL6/wrkr/t.resize(h:490,w:490)/data/mothercare/24dec2021/ZA087-2.jpg",
-      "title": "Bodysuits for girls",
-      "description": "Girls Full Sleeves Bodysuit Bee Print - Pack Of 3 - Multicolor",
-      "price": 800,
-      "quantity": 1,
-      "category": null
+      "id": "2"
     },
     {
       "id": "3",
       "image": "https://cdn.pixelspray.io/v2/black-bread-289bfa/XUefL6/wrkr/t.resize(h:490,w:490)/data/mothercare/24dec2021/ZB236-2.jpg",
-      "title": "Hooded Sweatshirt unisex",
-      "description": "Girls Full Sleeves Hooded Sweatshirt 3D Bunny Ear Details - Grey",
-      "price": 2100,
-      "quantity": 1,
-      "category": null
+      "title": "cloth 3",
+      "description": "best baby product on the market",
+      "price": 1233
     },
     {
       "id": "4",

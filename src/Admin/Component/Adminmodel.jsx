@@ -114,7 +114,7 @@ function Adminmodel({onClose, productId}) {
                     {formik.touched.image && formik.errors.image ? <div className='text-red-800 text-md'>{formik.errors.image}</div> : null}
 
                     <button type='submit' className='mt-4 w-full h-11 flex items-center justify-center gap-2 px-5 py-3 font-medium rounded-sm bg-blueberry-900' >
-                        Add products
+                        Update products
                     </button>
                     
                 </form>
