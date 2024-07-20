@@ -47,6 +47,14 @@ const AdminNavbar = () => {
                 >
                   About us
                 </NavLink>
+
+                <NavLink 
+                to={'/login'}
+                className="text-gray-700 hover:text-blue-800 px-3 py-2 rounded-md text-sm font-medium transition duration-300 hover:underline" 
+                >
+                Login
+                  
+                </NavLink >
                 
               </div>
             </div>

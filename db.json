@@ -40,21 +40,24 @@
       "name": "nandhu",
       "email": "nandhu@123gmail.com",
       "password": "Nandhu12345",
-      "confirmpassword": "Nandhu12345"
+      "confirmpassword": "Nandhu12345",
+      "cart":[]
     },
     {
       "id": "8671",
       "name": "Haritha",
       "email": "harithasb@123gmail.com",
       "password": "Haritha12345",
-      "confirmpassword": "Haritha12345"
+      "confirmpassword": "Haritha12345",
+      "cart":[]
     },
     {
       "id": "515a",
       "name": "sharan",
       "email": "sharan@123gmail.com",
       "password": "S12345678",
-      "confirmpassword": "S12345678"
+      "confirmpassword": "S12345678",
+      "cart":[]
     }
   ],
   "products": [
