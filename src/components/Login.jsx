@@ -1,17 +1,21 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
 import axios from 'axios'
+import { ShopContext } from './Cartcontext';
 import { useNavigate } from 'react-router-dom'
 
 
 
 export default function Login() {
+  
+  const {setIsAdmin} = useContext(ShopContext)
   const initialValues = {
     email_login:'',
     password_login:''
 }
- 
+
+
 
 const validationSchema = Yup.object({
   email_login:Yup.string().email('Invalid email ').required('Enter a valid email'),
@@ -22,14 +26,25 @@ const onSubmit = async (values)=>{
   const data = await axios.get('http://localhost:8000/users')
   const fetchData =(data.data)
   const user = fetchData.find((item)=> item.email === values.email_login && item.password === values.password_login)
+  //const admin = fetchData.find((item)=> item.email === values.email_login && item.password === values.password_login)
   console.log(user)
   if(user){
-    navigate('/home')
-    localStorage.setItem("id",user.id)
+    if(user.role === 'admin'){
+      navigate('/adminproducts')
+      localStorage.setItem("id",user.id)
+      setIsAdmin(true)//contex from the cartcontext to check the login 
+    }
+    else{
+      navigate('/home')
+      localStorage.setItem("id",user.id)
+      
+    }
+
   }
   else{
-    alert('this value is not Valid')
+    alert('invalid user name')
   }
+  
 }
 
     const formik = useFormik({ 

@@ -8,6 +8,7 @@ function AdminProducts() {
   const [isModel, setIsModel] = useState(false)
   const [isProductModel, setIsProductModel] = useState(false)
   const [productId, setProductId] = useState(null)
+  const [product, setProduct] = useState(null)
   const [isAddingProduct, setIsAddingProduct] = useState(false)
 
   useEffect(() => {
@@ -22,8 +23,10 @@ function AdminProducts() {
     fetchAdminData()
   }, [adminProduct])
 
-  const handleUpdate = (id) => {
+  const handleUpdate = (id,item) => {
     setProductId(id)
+    setProduct(item)
+
     setIsModel(true)
   }
 
@@ -50,11 +53,11 @@ function AdminProducts() {
   }
 
   return (
-    <div className="p-7">
+    <div className="p-9">
       <div className='flex justify-center'>
         <button
           onClick={addProductHandler}
-          className="mb-4 bg-green-600 hover:bg-green-500 text-white font-bold p-2 rounded-sm"
+          className="mb-6 bg-green-600 hover:bg-green-500 text-white font-bold p-2 rounded-sm"
         >
           Add Product
         </button>
@@ -67,19 +70,20 @@ function AdminProducts() {
             <div className="px-4 py-3 boreder-4 border-indigo-400">
               <div className="font-bold text-base mb-3">{item.title}</div>
               <p className="text-gray-700 text-sm">{item.description}</p>
+              <p className='text-gray-700 text-sm'>${item.price}</p>
             </div>
             <div className="px-4 py-3 flex space-x-3">
               <button onClick={() => handleDelete(item.id)} className="bg-blueberry-900 hover:bg-blueberry-800 text-white font-bold p-2 rounded-sm">
                 Delete
               </button>
-              <button onClick={() => handleUpdate(item.id)} className="bg-blueberry-900 hover:bg-blueberry-800 text-white font-bold p-2 rounded-sm">
+              <button onClick={() => handleUpdate(item.id,item)} className="bg-blueberry-900 hover:bg-blueberry-800 text-white font-bold p-2 rounded-sm">
                 Update
               </button>
             </div>
           </div>
         ))}
-        {isProductModel && <Adminaddproduct onClose={() => setIsProductModel(false)} />}
-        {isModel && <Adminmodel onClose={() => setIsModel(false)} productId={productId} isAddingProduct={isAddingProduct} />}
+        {isProductModel && <Adminaddproduct onClose={() => setIsProductModel(false)} productId={productId} product={product} />}
+        {isModel && <Adminmodel onClose={() => setIsModel(false)} product={product} productId={productId} isAddingProduct={isAddingProduct} />}
       </div>
     </div>
   )

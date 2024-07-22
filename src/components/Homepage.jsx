@@ -12,7 +12,7 @@ function Homepage() {
 
   return (
     <div className="container mx-auto px-0 py-8">
-      {/* Header Banner */}
+
       <div className="relative bg-blue-200 rounded-lg overflow-hidden">
         <img
           className="w-full h-96 object-cover"
@@ -20,14 +20,11 @@ function Homepage() {
           alt="Header Banner"
         />        
       </div>
-
-      {/* Featured Products */}
       
       <section className="mt-8 rounded-md bg-slate-400 p-16">
        
         <h2 className="text-2xl font-semibold mb-4 text-stone-50">Featured Products</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4  ">
-          {/* Example Product */}
           {
             homeData.filter((item)=>item.id <= 4).map((item)=>(
               <div key={item.id} className="bg-white shadow rounded p-4 hover:bg-slate-700 hover:text-white hover:scale-110 transition-transform duration-150">

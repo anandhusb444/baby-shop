@@ -39,7 +39,6 @@ function AdminUserListModel({ onClose, userId }) {
                 <p className="text-sm"><strong>Name:</strong> {userProduct.name}</p>
                 <p className="text-sm"><strong>Email:</strong> {userProduct.email}</p>
                 <h3 className="text-lg mt-3 mb-1">Cart Items</h3>
-                <p className="text-sm font-bold">Number of cart items: {userProduct.cart.length}</p>
                 {userProduct.cart && userProduct.cart.length > 0 && (
                     <div>
                         {userProduct.cart.map((item, index) => (

@@ -1,11 +1,12 @@
-import React, {useRef} from 'react';
+import React, {useEffect, useRef} from 'react';
 import { X } from 'lucide-react';
 import { Formik, useFormik } from 'formik';
 import * as Yup from 'yup'
 import axios from 'axios';
 
-function Adminaddproduct({onClose}) {
-
+function Adminaddproduct({onClose,productId,product}) {
+  
+   
 
   const adminUseRef = useRef()
 
@@ -14,15 +15,7 @@ function Adminaddproduct({onClose}) {
       onClose()
     }
   }
-
     
-    const initialValues = {
-        title:'',
-        description:'',
-        category:'',
-        quantity:'',
-        image:''
-    }
 
     const validationSchema = Yup.object({
         title:Yup.string().required('Enter the Title'),
@@ -38,6 +31,15 @@ function Adminaddproduct({onClose}) {
         axios.post(`http://localhost:8000/products/`,values)
          onClose()
     }
+
+
+    const initialValues = {
+      title:'',
+      description:'',
+      category:'',
+      quantity:'',
+      image:''
+  }
 
     const formik = useFormik({
         initialValues,
@@ -82,7 +84,7 @@ function Adminaddproduct({onClose}) {
                   onBlur={formik.handleBlur}
                   className='w-full px-2 py-1 text-black border border-gray-300 rounded-sm focus:outline-none focus:ring-2 focus:ring-blue-500'
                 />
-                {formik.touched.description && formik.errors.description ? <div className='text-md text-red-800 text-sm'>{formik.errors.title}</div> : null}
+                {formik.touched.description && formik.errors.description ? <div className='text-md text-red-800 text-sm'>{formik.errors.description}</div> : null}
               </div>
 
               <div>

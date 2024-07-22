@@ -4,7 +4,7 @@ import * as Yup from 'yup'
 import { X } from 'lucide-react';
 import axios from 'axios';
 
-function Adminmodel({onClose, productId}) {
+function Adminmodel({onClose, productId, product}) {
     
     const modelRef = useRef()
 
@@ -20,6 +20,7 @@ function Adminmodel({onClose, productId}) {
         description:Yup.string().required('Enter the Product Description'),
         category:Yup.string().required('Enter the product category '),
         quantity:Yup.string().required('Enter the product quantity'),
+        price:Yup.number().required('Enter the price'),
         image:Yup.string().required('Enter the product image')
     })
 
@@ -30,11 +31,12 @@ function Adminmodel({onClose, productId}) {
     }
 
     const initialValues = ({
-        title:'',
-        description:'',
-        category:'',
-        quantity:'',
-        image:''
+        title:product.title,
+        description:product.description,
+        category:product.category,
+        quantity:product.quantity,
+        price:product.price,
+        image:product.image
 
     })
 
@@ -100,6 +102,18 @@ function Adminmodel({onClose, productId}) {
                     className='w-60 h-9 px-3 py-3 text-black text-sm font-medium border-gray-300 rounded-sm'
                     />
                     {formik.touched.quantity && formik.errors.quantity ? <div className='text-red-800 text-md'>{formik.errors.quantity}</div> : null}
+                     
+                    <input
+                    type='text'
+                    id='prce'
+                    name='price'
+                    value={formik.values.price}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    placeholder='Enter the price'
+                    className='w-60 h-9 px-3 py-3 text-black text-sm font-medium border-gray-300 rounded-sm'
+                    />
+                    {formik.touched.price && formik.errors.price ? <div className='text-red-800 text-md'>{formik.errors.price}</div> : null}
 
                     <input
                     type='text'

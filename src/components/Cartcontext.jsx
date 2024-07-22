@@ -14,6 +14,7 @@ function ConterxtProvider({children}) {
 
     const [cart, setCart] = useState([])
     const [inputState, setInputState] = useState("")
+    const [isAdmin,setIsAdmin] = useState(null)
     const [isLogin, setIsLogin] = useState(!!id) // !! the doubel exclamerty mark return truty value if the value is empty string 0 null and false if the value is number stinrg etc...
     //console.log("is login from the cartConxtext", isLogin)
 
@@ -83,7 +84,7 @@ function ConterxtProvider({children}) {
     <div>
         
      
-        <ShopContext.Provider value={{addCart,cart, setCart, id, removeFromCart, incrementCart , decermentCart,handleChangeIput, inputState,setInputState, isLogin, logoutUser}}>
+        <ShopContext.Provider value={{addCart,cart, setCart, id, removeFromCart, incrementCart , decermentCart,handleChangeIput, inputState,setInputState, isLogin, logoutUser, setIsAdmin,isAdmin}}>
         {children}
         <ToastContainer/>
         </ShopContext.Provider>
