@@ -2,6 +2,7 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import Adminmodel from '../Component/Adminmodel'
 import Adminaddproduct from '../Component/Adminaddproduct'
+import toast from 'react-hot-toast';
 
 function AdminProducts() {
   const [adminProduct, setAdminProduct] = useState([])
@@ -40,6 +41,7 @@ function AdminProducts() {
       await axios.delete(`http://localhost:8000/products/${id}`)
       const remove = adminProduct.filter((item) => item.id !== id)
       setAdminProduct(remove)
+      toast.error('product removed')
     } catch {
       console.error('There is an error in the admin product delete part')
     }

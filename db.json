@@ -8,22 +8,22 @@
       "confirmpassword": "A12345678",
       "cart": [
         {
-          "id": "1",
-          "image": "https://cdn.pixelspray.io/v2/black-bread-289bfa/XUefL6/wrkr/t.resize(h:490,w:490)/data/mothercare/24dec2021/ZC353-2.jpg",
-          "title": "Sleepsuit for boys",
-          "description": "Boys Full Sleeves Sleepsuit Christmas Design-Navy",
-          "price": 1000,
-          "quantity": 1,
-          "category": "boys"
+          "title": "Hoodies for kids",
+          "description": "grey hoodie with cotton finesh",
+          "category": "boys",
+          "quantity": 4,
+          "price": "900",
+          "image": "https://cdn.pixelspray.io/v2/black-bread-289bfa/XUefL6/wrkr/t.resize(h:490,w:490)/data/mothercare/24dec2021/ZB236-2.jpg",
+          "id": "3"
         },
         {
-          "id": "2",
-          "image": "https://cdn.pixelspray.io/v2/black-bread-289bfa/XUefL6/wrkr/t.resize(h:490,w:490)/data/mothercare/24dec2021/ZA087-2.jpg",
-          "title": "Bodysuits for girls",
-          "description": "Girls Full Sleeves Bodysuit Bee Print - Pack Of 3 - Multicolor",
-          "price": 800,
+          "title": "Top for girls",
+          "description": "By Hamleys Girls Short Sleeves T-Shirt Floral Print-White",
+          "category": "clothing",
           "quantity": 1,
-          "category": null
+          "price": 1500,
+          "image": "https://cdn.pixelspray.io/v2/black-bread-289bfa/XUefL6/wrkr/t.resize(h:490,w:490)/data/mothercare/22mar2022/410262802001-2.jpg",
+          "id": "5"
         }
       ]
     },
@@ -33,7 +33,26 @@
       "email": "adith@123gmail.com",
       "password": "Adith1234567",
       "confirmpassword": "Adith1234567",
-      "cart": []
+      "cart": [
+        {
+          "id": "4",
+          "image": "https://cdn.pixelspray.io/v2/black-bread-289bfa/XUefL6/wrkr/t.resize(h:490,w:490)/data/mothercare/24dec2021/ZB726-2.jpg",
+          "title": " Cardigan Frill",
+          "description": "Girls Full Sleeves Striped Cardigan Frill Detail - Multicolor",
+          "price": 1200,
+          "quantity": 3,
+          "category": "girls"
+        },
+        {
+          "id": "9",
+          "image": "https://cdn.pixelspray.io/v2/black-bread-289bfa/XUefL6/wrkr/t.resize(h:490,w:490)/data/mothercare/24dec2021/ZA388-2.jpg",
+          "title": "Cardigan Frill yellow",
+          "description": "Girls Full Sleeves Striped Cardigan Frill Detail - Multicolor",
+          "price": 2300,
+          "quantity": 1,
+          "category": "girls"
+        }
+      ]
     },
     {
       "id": "de91",
@@ -57,23 +76,34 @@
       "name": "admin1234",
       "email": "admin1234@gmail.com",
       "password": "A1234567",
-      "confirmpassword": "A1234567"
+      "confirmpassword": "A1234567",
+      "cart": [
+        {
+          "title": "Baby suits for kids",
+          "description": "Baby suits pack of four ",
+          "category": "girsl",
+          "quantity": "1",
+          "price": "700",
+          "image": "https://cdn.pixelspray.io/v2/black-bread-289bfa/XUefL6/wrkr/t.resize(h:490,w:490)/data/mothercare/24dec2021/ZA087-2.jpg",
+          "id": "2"
+        }
+      ]
     }
   ],
   "products": [
     {
-      "id": "1",
-      "image": "https://cdn.pixelspray.io/v2/black-bread-289bfa/XUefL6/wrkr/t.resize(h:490,w:490)/data/mothercare/24dec2021/ZC353-2.jpg",
       "title": "Sleepsuit for boys",
       "description": "Boys Full Sleeves Sleepsuit Christmas Design-Navy",
-      "price": 1000,
+      "category": "clothing",
       "quantity": 1,
-      "category": "boys"
+      "price": 1000,
+      "image": "https://cdn.pixelspray.io/v2/black-bread-289bfa/XUefL6/wrkr/t.resize(h:490,w:490)/data/mothercare/24dec2021/ZC353-2.jpg",
+      "id": "1"
     },
     {
       "title": "Baby suits for kids",
       "description": "Baby suits pack of four ",
-      "category": "girsl",
+      "category": "clothing",
       "quantity": "1",
       "price": "700",
       "image": "https://cdn.pixelspray.io/v2/black-bread-289bfa/XUefL6/wrkr/t.resize(h:490,w:490)/data/mothercare/24dec2021/ZA087-2.jpg",
@@ -82,29 +112,29 @@
     {
       "title": "Hoodies for kids",
       "description": "grey hoodie with cotton finesh",
-      "category": "boys",
+      "category": "clothing",
       "quantity": "1",
       "price": "900",
       "image": "https://cdn.pixelspray.io/v2/black-bread-289bfa/XUefL6/wrkr/t.resize(h:490,w:490)/data/mothercare/24dec2021/ZB236-2.jpg",
       "id": "3"
     },
     {
-      "id": "4",
-      "image": "https://cdn.pixelspray.io/v2/black-bread-289bfa/XUefL6/wrkr/t.resize(h:490,w:490)/data/mothercare/24dec2021/ZB726-2.jpg",
       "title": " Cardigan Frill",
       "description": "Girls Full Sleeves Striped Cardigan Frill Detail - Multicolor",
-      "price": 1200,
+      "category": "clothing",
       "quantity": 1,
-      "category": "girls"
+      "price": 1200,
+      "image": "https://cdn.pixelspray.io/v2/black-bread-289bfa/XUefL6/wrkr/t.resize(h:490,w:490)/data/mothercare/24dec2021/ZB726-2.jpg",
+      "id": "4"
     },
     {
-      "id": "5",
-      "image": "https://cdn.pixelspray.io/v2/black-bread-289bfa/XUefL6/wrkr/t.resize(h:490,w:490)/data/mothercare/22mar2022/410262802001-2.jpg",
       "title": "Top for girls",
       "description": "By Hamleys Girls Short Sleeves T-Shirt Floral Print-White",
-      "price": 1500,
+      "category": "clothing",
       "quantity": 1,
-      "category": "girls"
+      "price": 1500,
+      "image": "https://cdn.pixelspray.io/v2/black-bread-289bfa/XUefL6/wrkr/t.resize(h:490,w:490)/data/mothercare/22mar2022/410262802001-2.jpg",
+      "id": "5"
     },
     {
       "id": "6",
@@ -116,21 +146,22 @@
       "category": null
     },
     {
-      "id": "7",
-      "image": "https://cdn.pixelspray.io/v2/black-bread-289bfa/XUefL6/wrkr/t.resize(h:490,w:490)/data/mothercare/13dec2021/NBAAAC01-2.jpg",
-      "title": "Hamleys Hats Boys",
-      "description": "H By Hamleys Boys Hats 3D Ear Details-Pack Of 2-Multicolor",
+      "title": "extra soft teddy bear",
+      "description": "toys for kids",
+      "category": "toys",
+      "quantity": 1,
       "price": 500,
-      "quantity": 1
+      "image": "https://websitedemos.net/baby-store-04/wp-content/uploads/sites/750/2020/12/baby-store-product-img-12.jpg",
+      "id": "7"
     },
     {
-      "id": "8",
-      "image": "https://cdn.pixelspray.io/v2/black-bread-289bfa/XUefL6/wrkr/t.resize(h:600,w:600)/data/mothercare/15June2020_new_images/VB223YELLOW_1.jpg",
       "title": "T-shirt for boys",
       "description": "Boys Half Sleeves T-Shirt Dino Print - Yellow",
-      "price": 2300,
+      "category": "clothing",
       "quantity": 1,
-      "category": "boys"
+      "price": 2300,
+      "image": "https://cdn.pixelspray.io/v2/black-bread-289bfa/XUefL6/wrkr/t.resize(h:600,w:600)/data/mothercare/15June2020_new_images/VB223YELLOW_1.jpg",
+      "id": "8"
     },
     {
       "id": "9",
@@ -149,6 +180,33 @@
       "price": 2300,
       "quantity": 1,
       "category": "girls"
+    },
+    {
+      "id": "f77f",
+      "title": "Nutri kid DHA + food",
+      "description": "food for kids",
+      "category": "food",
+      "quantity": "1",
+      "image": "https://websitedemos.net/baby-store-04/wp-content/uploads/sites/750/2020/12/baby-store-product-img-9.jpg",
+      "price": "1000"
+    },
+    {
+      "id": "102a",
+      "title": "vitcom nutrition food high protien",
+      "description": "best for kids health",
+      "category": "food",
+      "quantity": "1",
+      "image": "https://websitedemos.net/baby-store-04/wp-content/uploads/sites/750/2020/12/baby-store-product-img-6.jpg",
+      "price": "2000"
+    },
+    {
+      "id": "cb75",
+      "title": "teddy bear ",
+      "description": "toys for kids",
+      "category": "toys",
+      "quantity": "4",
+      "image": "https://websitedemos.net/baby-store-04/wp-content/uploads/sites/750/2020/12/baby-store-product-img-7.jpg",
+      "price": "500"
     }
   ]
 }

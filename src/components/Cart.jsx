@@ -17,7 +17,7 @@ function Cart() {
     return acc + (item.price * item.quantity);
   }, 0);
   
-  console.log("cart length",cart.length);
+  //console.log("cart length",cart.length);
 
   return (
     <div className="p-4">

@@ -4,12 +4,13 @@ import * as Yup from 'yup'
 import axios from 'axios'
 import { ShopContext } from './Cartcontext';
 import { useNavigate } from 'react-router-dom'
+import toast from 'react-hot-toast';
 
 
 
 export default function Login() {
   
-  const {setIsAdmin} = useContext(ShopContext)
+  const {setIsAdmin, setIsUser, setIsCart} = useContext(ShopContext)
   const initialValues = {
     email_login:'',
     password_login:''
@@ -22,6 +23,7 @@ const validationSchema = Yup.object({
   password_login:Yup.string().min(8,'password must be 8 letter').required('Enter your password'),
 })
 const navigate = useNavigate()
+
 const onSubmit = async (values)=>{
   const data = await axios.get('http://localhost:8000/users')
   const fetchData =(data.data)
@@ -30,19 +32,22 @@ const onSubmit = async (values)=>{
   console.log(user)
   if(user){
     if(user.role === 'admin'){
-      navigate('/adminproducts')
+      navigate("/admin/home")
       localStorage.setItem("id",user.id)
       setIsAdmin(true)//contex from the cartcontext to check the login 
+      toast.success('welcome admin')
     }
     else{
-      navigate('/home')
+      navigate('/')
       localStorage.setItem("id",user.id)
-      
+      setIsUser(true)
+      setIsCart(true)
+      toast.success('success')
     }
 
   }
   else{
-    alert('invalid user name')
+    toast.error('invalid user')
   }
   
 }

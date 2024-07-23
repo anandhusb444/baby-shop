@@ -4,6 +4,7 @@ import App from './App.jsx'
 import './index.css'
 import ConterxtProvider from './components/Cartcontext.jsx'
 import Navbar from './components/Navbar.jsx'
+import { Toaster } from 'react-hot-toast';
 
 
 
@@ -13,6 +14,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     <ConterxtProvider>
 
      <App />
+     <Toaster />
    </ConterxtProvider>
 
     

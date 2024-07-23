@@ -29,7 +29,7 @@ function Adminmodel({onClose, productId, product}) {
         //console.log(respones.data)
         onClose()
     }
-
+    
     const initialValues = ({
         title:product.title,
         description:product.description,
