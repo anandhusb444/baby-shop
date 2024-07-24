@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import { X } from 'lucide-react';
 import axios from 'axios';
 import { ShopContext } from '../components/Cartcontext';
@@ -35,10 +35,21 @@ function LogoutModel({ onClose,setmodal,setIsUser }) {
         fetchData();
     }, [id]);
 
-    if (isLoading) return <div>Loading...</div>;
+    //if (isLoading) return <div>Loading...</div>;
+
+    const logoutuseRef = useRef()
+
+    const handleCloseModel = (e)=>{
+        if(logoutuseRef.current === e.target){
+            setmodal(false)
+
+            
+
+        } 
+    }
 
     return (
-        <div className='fixed inset-0 bg-gray-600 bg-opacity-50 flex justify-center items-start z-20'>
+        <div ref={logoutuseRef} onClick={handleCloseModel} className='fixed inset-0 bg-gray-600 bg-opacity-50 flex justify-center items-start z-20'>
             <div className='relative w-80 max-w-xs bg-gray-50 shadow-lg rounded-lg'>
                 <button className='absolute top-2 right-2 p-2' onClick={setmodal}>
                     <X size={24} />

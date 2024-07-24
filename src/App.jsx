@@ -17,7 +17,7 @@ import Products from "./Admin/Pages/AdminProducts";
 import AdminProducts from "./Admin/Pages/AdminProducts";
 import Adminmodel from "./Admin/Component/Adminmodel";
 import AdminUserlist from "./Admin/Pages/AdminUserlist";
-import AdminHomePage from "./Admin/Pages/Adminaboutus";
+import AdminHomePage from "./Admin/Pages/Adminhome";
 import Footer from "./Pages/Footer";
 import ContactUs from "./Pages/Contactus";
 

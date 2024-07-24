@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import Adminmodel from '../Component/Adminmodel'
 import Adminaddproduct from '../Component/Adminaddproduct'
 import toast from 'react-hot-toast';
+import Adminordermodel from '../Component/Adminordermodel';
 
 function AdminProducts() {
   const [adminProduct, setAdminProduct] = useState([])
@@ -31,10 +32,10 @@ function AdminProducts() {
     setIsModel(true)
   }
 
-  const handleAddProduct = () => {
-    setProductId(null)
-    setIsModel(true)
-  }
+  // const handleAddProduct = () => {
+  //   setProductId(null)
+  //   setIsModel(true)
+  // }
 
   const handleDelete = async (id) => {
     try {
@@ -84,6 +85,7 @@ function AdminProducts() {
             </div>
           </div>
         ))}
+        
         {isProductModel && <Adminaddproduct onClose={() => setIsProductModel(false)} productId={productId} product={product} />}
         {isModel && <Adminmodel onClose={() => setIsModel(false)} product={product} productId={productId} isAddingProduct={isAddingProduct} />}
       </div>

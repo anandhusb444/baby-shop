@@ -8,22 +8,43 @@
       "confirmpassword": "A12345678",
       "cart": [
         {
-          "title": "Hoodies for kids",
-          "description": "grey hoodie with cotton finesh",
-          "category": "boys",
-          "quantity": 4,
-          "price": "900",
-          "image": "https://cdn.pixelspray.io/v2/black-bread-289bfa/XUefL6/wrkr/t.resize(h:490,w:490)/data/mothercare/24dec2021/ZB236-2.jpg",
-          "id": "3"
+          "title": "Baby suits for kids",
+          "description": "Baby suits pack of four ",
+          "category": "clothing",
+          "quantity": "1",
+          "price": "700",
+          "image": "https://cdn.pixelspray.io/v2/black-bread-289bfa/XUefL6/wrkr/t.resize(h:490,w:490)/data/mothercare/24dec2021/ZA087-2.jpg",
+          "id": "2"
         },
         {
-          "title": "Top for girls",
-          "description": "By Hamleys Girls Short Sleeves T-Shirt Floral Print-White",
+          "title": "Sleepsuit for boys",
+          "description": "Boys Full Sleeves Sleepsuit Christmas Design-Navy",
           "category": "clothing",
           "quantity": 1,
-          "price": 1500,
-          "image": "https://cdn.pixelspray.io/v2/black-bread-289bfa/XUefL6/wrkr/t.resize(h:490,w:490)/data/mothercare/22mar2022/410262802001-2.jpg",
-          "id": "5"
+          "price": 1000,
+          "image": "https://cdn.pixelspray.io/v2/black-bread-289bfa/XUefL6/wrkr/t.resize(h:490,w:490)/data/mothercare/24dec2021/ZC353-2.jpg",
+          "id": "1"
+        },
+        {
+          "title": " Cardigan Frill",
+          "description": "Girls Full Sleeves Striped Cardigan Frill Detail - Multicolor",
+          "category": "clothing",
+          "quantity": 1,
+          "price": 1200,
+          "image": "https://cdn.pixelspray.io/v2/black-bread-289bfa/XUefL6/wrkr/t.resize(h:490,w:490)/data/mothercare/24dec2021/ZB726-2.jpg",
+          "id": "4"
+        }
+      ],
+      "order": [
+        {
+          "name": "anandhu",
+          "number": "1234567890",
+          "email": "anandhusb220@gmail.com",
+          "address": "calicut",
+          "pincode": "673304",
+          "state": "kerala",
+          "price": 1700,
+          "account": "123456789098765432"
         }
       ]
     },
@@ -31,8 +52,8 @@
       "id": "3528",
       "name": "adith",
       "email": "adith@123gmail.com",
-      "password": "Adith1234567",
-      "confirmpassword": "Adith1234567",
+      "password": "A1234567",
+      "confirmpassword": "A1234567",
       "cart": [
         {
           "id": "4",
@@ -44,15 +65,16 @@
           "category": "girls"
         },
         {
-          "id": "9",
-          "image": "https://cdn.pixelspray.io/v2/black-bread-289bfa/XUefL6/wrkr/t.resize(h:490,w:490)/data/mothercare/24dec2021/ZA388-2.jpg",
-          "title": "Cardigan Frill yellow",
-          "description": "Girls Full Sleeves Striped Cardigan Frill Detail - Multicolor",
-          "price": 2300,
-          "quantity": 1,
-          "category": "girls"
+          "title": "Baby suits for kids",
+          "description": "Baby suits pack of four ",
+          "category": "clothing",
+          "quantity": "1",
+          "price": "700",
+          "image": "https://cdn.pixelspray.io/v2/black-bread-289bfa/XUefL6/wrkr/t.resize(h:490,w:490)/data/mothercare/24dec2021/ZA087-2.jpg",
+          "id": "2"
         }
-      ]
+      ],
+      "order": []
     },
     {
       "id": "de91",
@@ -60,7 +82,8 @@
       "email": "nandhu@123gmail.com",
       "password": "Nandhu12345",
       "confirmpassword": "Nandhu12345",
-      "cart": []
+      "cart": [],
+      "order": []
     },
     {
       "id": "515a",
@@ -68,7 +91,8 @@
       "email": "sharan@123gmail.com",
       "password": "S12345678",
       "confirmpassword": "S12345678",
-      "cart": []
+      "cart": [],
+      "order": []
     },
     {
       "role": "admin",
@@ -77,17 +101,8 @@
       "email": "admin1234@gmail.com",
       "password": "A1234567",
       "confirmpassword": "A1234567",
-      "cart": [
-        {
-          "title": "Baby suits for kids",
-          "description": "Baby suits pack of four ",
-          "category": "girsl",
-          "quantity": "1",
-          "price": "700",
-          "image": "https://cdn.pixelspray.io/v2/black-bread-289bfa/XUefL6/wrkr/t.resize(h:490,w:490)/data/mothercare/24dec2021/ZA087-2.jpg",
-          "id": "2"
-        }
-      ]
+      "cart": [],
+      "order": []
     }
   ],
   "products": [

@@ -19,6 +19,22 @@ function ConterxtProvider({children}) {
     //console.log("is login from the cartConxtext", isLogin)
 
     useEffect(() => {
+      const storedCart = JSON.parse(localStorage.getItem('cart'));
+      if (storedCart) {
+        setCart(storedCart);
+      }
+    }, []);
+  
+    useEffect(() => {
+      localStorage.setItem('cart', JSON.stringify(cart));
+    }, [cart]);
+  
+    const clearCart = () => {
+      setCart([]);
+      localStorage.removeItem('cart');
+    };
+
+    useEffect(() => {
       if (id) {
         axios.get(`http://localhost:8000/users/${id}`).then((response) => {
           setCart(response.data.cart || []);
@@ -47,7 +63,7 @@ function ConterxtProvider({children}) {
       
           }
 
-          console.log("cart length from the cartcontext",cart.length)
+          // console.log("cart length from the cartcontext",cart.length)
 
     
     const removeFromCart = (elem)=>{
@@ -113,6 +129,7 @@ function ConterxtProvider({children}) {
               isUser,
               isCart,
               setIsCart,
+              clearCart
               }}>
         {children}
         </ShopContext.Provider>

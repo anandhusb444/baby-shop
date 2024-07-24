@@ -26,7 +26,7 @@ const Navbar = () => {
       setIsUser(true)
       setIsCart(true)
       
-      console.log(user)
+      // console.log(user)
     }
     
   },[setIsUser])
@@ -38,7 +38,7 @@ const Navbar = () => {
     setIsCart(false)
   }
 
-  console.log(cart.length)
+  // console.log(cart.length)
 
   return (
     <nav className="bg-white shadow-lg py-3 border-4 border-indigo-200">

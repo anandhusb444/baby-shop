@@ -1,9 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { ShopContext } from './Cartcontext';
 import axios from 'axios';
+import Paymentmodel from '../User/Paymentmodel';
 
 
 function Cart() {
+  const [payModel, setPayModel] = useState(false)
  
   const { cart, setCart, id, removeFromCart, incrementCart, decermentCart } = useContext(ShopContext);
   //console.log(cart);
@@ -67,11 +69,13 @@ function Cart() {
           <div className="bg-slate-100 p-4 w-full text-center">
             <div className="text-lg font-semibold">Total Price: ${total}</div>
           </div>
-          <button className="bg-lime-500 hover:bg-lime-700 text-white font-bold py-2 px-4 mt-4 w-full sm:w-auto">
+          <button onClick={()=>setPayModel(true)} className="bg-lime-500 hover:bg-lime-700 text-white font-bold py-2 px-4 mt-4 w-full sm:w-auto">
             Checkout
           </button>
         </>
       )}
+      {payModel && <Paymentmodel setPayModel={()=>setPayModel(false)}/>}
+      
     </div>
   );
 }

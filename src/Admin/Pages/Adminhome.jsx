@@ -38,12 +38,12 @@ function AdminHomePage() {
         <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-2 xl:grid-cols-6 gap-4">
             <div className="p-4 rounded overflow-hidden shadow-lg hover:scale-105 transition-transform duration-150 bg-white border-4 border-indigo-200 text-center">
-              <div onClick={()=>navigate('/userlist')} className="bg-indigo-500 text-white p-4 rounded mb-4">
+              <div onClick={()=>navigate('/admin/userlist')} className="bg-indigo-500 text-white p-4 rounded mb-4">
                <h2 className="text-xl font-bold">Users-{userLength.length}</h2>
               </div>
             </div>
                 <div className="p-4 rounded overflow-hidden shadow-lg hover:scale-105 transition-transform duration-150 bg-white border-4 border-indigo-200 text-center">
-                    <div onClick={()=>navigate('/adminproducts')} className="bg-green-500 text-white p-4 rounded mb-4">
+                    <div onClick={()=>navigate('/admin/products')} className="bg-green-500 text-white p-4 rounded mb-4">
                         <h2 className="text-xl font-bold">Products- {productLength.length}</h2>
                     </div>
                 </div>
