@@ -6,74 +6,63 @@ import { ShopContext } from './Cartcontext';
 import { useNavigate } from 'react-router-dom'
 import toast from 'react-hot-toast';
 
-
-
 export default function Login() {
-  
-  const {setIsAdmin, setIsUser, setIsCart} = useContext(ShopContext)
+  const { setIsAdmin, setIsUser, setIsCart } = useContext(ShopContext)
   const initialValues = {
-    email_login:'',
-    password_login:''
-}
-
-
-
-const validationSchema = Yup.object({
-  email_login:Yup.string().email('Invalid email ').required('Enter a valid email'),
-  password_login:Yup.string().min(8,'password must be 8 letter').required('Enter your password'),
-})
-const navigate = useNavigate()
-
-const onSubmit = async (values)=>{
-  const data = await axios.get('http://localhost:8000/users')
-  const fetchData =(data.data)
-  const user = fetchData.find((item)=> item.email === values.email_login && item.password === values.password_login)
-  //const admin = fetchData.find((item)=> item.email === values.email_login && item.password === values.password_login)
-  console.log(user)
-  if(user){
-    if(user.role === 'admin'){
-      navigate("/admin/home")
-      localStorage.setItem("id",user.id)
-      setIsAdmin(true)//contex from the cartcontext to check the login 
-      toast.success('welcome admin')
-    }
-    else{
-      navigate('/')
-      localStorage.setItem("id",user.id)
-      setIsUser(true)
-      setIsCart(true)
-      toast.success('success')
-    }
-
+    email_login: '',
+    password_login: ''
   }
-  else{
-    toast.error('invalid user')
-  }
-  
-}
 
-    const formik = useFormik({ 
-        initialValues,
-        onSubmit,
-        validationSchema
-    })
-    //console.log(formik.values)
-    return (
-      <>
-        <div className="flex min-h-full flex-1 flex-col justify-center lg:px-8">
-          <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-            <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
-              Sign in to your account
-            </h2>
-          </div>
-  
-          <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-            <form onSubmit={formik.handleSubmit} action="#" method="POST" className="space-y-6">
+  const validationSchema = Yup.object({
+    email_login: Yup.string().email('Invalid email ').required('Enter a valid email'),
+    password_login: Yup.string().min(8, 'Password must be 8 letters').required('Enter your password'),
+  })
+
+  const navigate = useNavigate()
+
+  const onSubmit = async (values) => {
+    const data = await axios.get('http://localhost:8000/users')
+    const fetchData = (data.data)
+    const user = fetchData.find((item) => item.email === values.email_login && item.password === values.password_login)
+    console.log(user)
+    if (user) {
+      if (user.role === 'admin') {
+        navigate("/admin/home")
+        localStorage.setItem("id", user.id)
+        setIsAdmin(true) // context from the cart context to check the login 
+        toast.success('Welcome admin')
+      } else {
+        navigate('/')
+        localStorage.setItem("id", user.id)
+        setIsUser(true)
+        setIsCart(true)
+        toast.success('Success')
+      }
+    } else {
+      toast.error('Invalid user')
+    }
+  }
+
+  const formik = useFormik({
+    initialValues,
+    onSubmit,
+    validationSchema
+  })
+
+  return (
+    <>
+      <div className="flex min-h-screen items-center justify-center p-4">
+        <div className="w-full max-w-xs">
+          <h2 className="mt-4 text-center text-xl font-bold leading-9 tracking-tight text-gray-900">
+            Sign in to your account
+          </h2>
+          <div className="mt-6 border-2 p-4 rounded-lg shadow-md">
+            <form onSubmit={formik.handleSubmit} className="space-y-4">
               <div>
                 <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
                   Email address
                 </label>
-                <div className="mt-2">
+                <div className="mt-1">
                   <input
                     id="email_login"
                     name="email_login"
@@ -83,20 +72,16 @@ const onSubmit = async (values)=>{
                     onBlur={formik.handleBlur}
                     required
                     autoComplete="email"
-                    className="block w-full  border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    className="block w-full border-0 px-2 py-1 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   />
                 </div>
+                {formik.touched.email_login && formik.errors.email_login ? <div className='text-xs text-red-700'>{formik.errors.email_login}</div> : null}
               </div>
-              {formik.touched.email_login && formik.errors.email_login ? <div className='text-sm text-red-700'>{formik.errors.email_login}</div> : null}
-
               <div>
-                <div className="flex items-center justify-between">
-                  <label htmlFor="password" className="block text-sm font-medium leading-6 text-gray-900">
-                    Password
-                  </label>
-                 
-                </div>
-                <div className="mt-2">
+                <label htmlFor="password" className="block text-sm font-medium leading-6 text-gray-900">
+                  Password
+                </label>
+                <div className="mt-1">
                   <input
                     id="password_login"
                     name="password_login"
@@ -106,24 +91,23 @@ const onSubmit = async (values)=>{
                     onBlur={formik.handleBlur}
                     required
                     autoComplete="current-password"
-                    className="block w-full  border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    className="block w-full border-0 px-2 py-1 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   />
                 </div>
+                {formik.touched.password_login && formik.errors.password_login ? <div className='text-xs text-red-700'>{formik.errors.password_login}</div> : null}
               </div>
-              {formik.touched.password_login && formik.errors.password_login ? <div className='text-sm text-red-700'>{formik.errors.password_login}</div> : null}
-  
               <div>
                 <button
                   type="submit"
-                  className="flex w-full justify-center  bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                  className="flex w-full justify-center bg-indigo-600 px-3 py-1 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                 >
                   Sign in
                 </button>
               </div>
-            </form>          
+            </form>
           </div>
         </div>
-      </>
-    )
-  }
-  
+      </div>
+    </>
+  )
+}
