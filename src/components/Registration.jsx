@@ -37,7 +37,7 @@ export default function Registration() {
             if (user) {
                 alert('This user already exists')
             } else {
-                await axios.post('http://localhost:8000/users', values)
+                await axios.post('https://localhost:7114/api/User/Register', values)
                 setTimeout(() => navigate('/Login'), 1000)
             }
 

@@ -5,6 +5,9 @@ import axios from 'axios'
 import { ShopContext } from './Cartcontext';
 import { useNavigate } from 'react-router-dom'
 import toast from 'react-hot-toast';
+import {jwtDecode} from "jwt-decode";
+//import jwt_decode from 'jwt-decode';
+
 
 export default function Login() {
   const { setIsAdmin, setIsUser, setIsCart } = useContext(ShopContext)
@@ -21,10 +24,26 @@ export default function Login() {
   const navigate = useNavigate()
 
   const onSubmit = async (values) => {
-    const data = await axios.get('http://localhost:8000/users')
-    const fetchData = (data.data)
+    const data = await axios.post('https://localhost:7114/api/User/Login',{
+      email : values.email_login,
+      password : values.password_login
+    })
+    .then((res)=>{
+       
+        if(res.status >=200 && res.status <= 300)
+        {
+         const token = res.data
+         const decodeToken = jwtDecode(token)
+
+         const role = decodeToken["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"]
+         console.log("Decoded Role :",role)
+        }
+    })
+    
+    const fetchData = (data.data.token)
+
     const user = fetchData.find((item) => item.email === values.email_login && item.password === values.password_login)
-    console.log(user)
+    //console.log(user)
     if (user) {
       if (user.role === 'admin') {
         navigate("/admin/home")

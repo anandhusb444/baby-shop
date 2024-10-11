@@ -5,7 +5,7 @@ import { ShopContext } from '../components/Cartcontext';
 import toast from 'react-hot-toast';
 
 function LogoutModel({ onClose,setmodal,setIsUser }) {
-    const [userData, setUserData] = useState(null);
+    const [userData, setUserData] = useState(true);
     const [isLoading, setIsLoading] = useState(true);
     const id = localStorage.getItem("id");
 
@@ -24,7 +24,7 @@ function LogoutModel({ onClose,setmodal,setIsUser }) {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get(`http://localhost:8000/users/${id}`);
+                const response = await axios.post(`https://localhost:7114/api/User/Login`);
                 setUserData(response.data);
             } catch (error) {
                 console.error('Error fetching user data', error);
