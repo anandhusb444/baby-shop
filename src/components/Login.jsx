@@ -6,7 +6,6 @@ import { ShopContext } from './Cartcontext';
 import { useNavigate } from 'react-router-dom'
 import toast from 'react-hot-toast';
 import {jwtDecode} from "jwt-decode";
-//import jwt_decode from 'jwt-decode';
 
 
 export default function Login() {
@@ -29,38 +28,47 @@ export default function Login() {
       password : values.password_login
     })
     .then((res)=>{
+      console.log(res.data.statusCode)
        
-        if(res.status >=200 && res.status <= 300)
+        if(res.data.statusCode >=200 && res.data.statusCode <= 300)
         {
-         const token = res.data
+          console.log(res)
+          console.log(res.data)
+         const token = res.data.data
          const decodeToken = jwtDecode(token)
-
+         
          const role = decodeToken["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"]
+         const Id = decodeToken["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"]
+         //console.log(decodeToken)
          console.log("Decoded Role :",role)
+         console.log(Id)
+
+          if(role === "Admin")
+            {
+              navigate("/admin/home")
+              localStorage.setItem("id",Id)
+              localStorage.setItem("token",token)
+              console.log(token)
+              setIsAdmin(true)
+              toast.success('Welcome admin')
+            }
+          else
+            {
+                navigate('/')
+                localStorage.setItem("id", Id)
+                setIsUser(true)
+                setIsCart(true)
+                toast.success('Success')
+            }
         }
     })
-    
-    const fetchData = (data.data.token)
-
-    const user = fetchData.find((item) => item.email === values.email_login && item.password === values.password_login)
-    //console.log(user)
-    if (user) {
-      if (user.role === 'admin') {
-        navigate("/admin/home")
-        localStorage.setItem("id", user.id)
-        setIsAdmin(true) // context from the cart context to check the login 
-        toast.success('Welcome admin')
-      } else {
-        navigate('/')
-        localStorage.setItem("id", user.id)
-        setIsUser(true)
-        setIsCart(true)
-        toast.success('Success')
+    .catch((error)=>{
+      if(error.response && error.response.status === 400){
+        toast.error("Invalid User")
       }
-    } else {
-      toast.error('Invalid user')
-    }
-  }
+    })
+    
+   }
 
   const formik = useFormik({
     initialValues,

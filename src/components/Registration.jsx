@@ -3,21 +3,22 @@ import { useFormik } from 'formik'
 import * as Yup from 'yup'
 import axios from 'axios'
 import { NavLink, useNavigate } from 'react-router-dom'
+import toast from 'react-hot-toast'
 
 const initialValues = {
-    name: '',
-    email: '',
+    userName: '',
+    userEmail: '',
     password: '',
     confirmpassword: ''
 }
 
 const validationSchema = Yup.object({
-    name: Yup.string().required('Please enter your name'),
-    email: Yup.string().email('Invalid email format').required('Please enter an email'),
+    userName: Yup.string().required('Please enter your name'),
+    userEmail: Yup.string().email('Invalid email format').required('Please enter an email'),
     password: Yup.string().min(8, 'Password must be 8 letters')
         .matches(/^[A-Z]/, 'Password must start with a capital letter')
         .required('Required'),
-    confirmpassword: Yup.string()
+        password: Yup.string()
         .oneOf([Yup.ref('password'), null], 'Passwords must match')
         .required('Required')
 })
@@ -28,27 +29,32 @@ export default function Registration() {
 
     const onSubmit = async (values) => {
         try {
-            const userGetData = await axios.get('http://localhost:8000/users')
-            const existingData = userGetData.data
-            const user = existingData.find((item) => item.email === values.email && item.password === values.password)
-
-            console.log(user)
-
-            if (user) {
-                alert('This user already exists')
-            } else {
-                await axios.post('https://localhost:7114/api/User/Register', values)
-                setTimeout(() => navigate('/Login'), 1000)
+            console.log(values)
+            const respones = await axios.post('https://localhost:7114/api/User/Register',values);
+            console.log(respones.data)
+            // const res = respones.data
+            //console.log(res)
+                if(res.message === "User already existed")
+                {
+                    toast.error("user alreay existed")
+                }
+                else
+                {
+                    setTimeout(()=> navigate('/Login'),1000)
+                }
+        } 
+        catch(error) 
+        { 
+            if(error.response.data.message === "User already existed")
+            {
+                toast.error("User already existed")
             }
-
-        } catch {
-            console.log('There was an error posting the data')
         }
     }
 
     const formik = useFormik({
         initialValues,
-        onSubmit,
+        onSubmit,   
         validationSchema
     })
 
@@ -70,14 +76,14 @@ export default function Registration() {
                             <div className="mt-1">
                                 <input
                                     type="text"
-                                    id="name"
-                                    name="name"
+                                    id="userName"
+                                    name="userName"
                                     value={formik.values.name}
                                     onChange={formik.handleChange}
                                     onBlur={formik.handleBlur}
                                     className="block w-full border-0 px-2 py-1 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
                             </div>
-                            {formik.touched.name && formik.errors.name ? <div className='text-xs text-red-500'>{formik.errors.name}</div> : null}
+                            {formik.touched.userName && formik.errors.userName ? <div className='text-xs text-red-500'>{formik.errors.userName}</div> : null}
                         </div>
                         <div>
                             <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
@@ -85,16 +91,16 @@ export default function Registration() {
                             </label>
                             <div className="mt-1">
                                 <input
-                                    id="email"
-                                    name="email"
+                                    id="userEmail"
+                                    name="userEmail"
                                     type="email"
-                                    value={formik.values.email}
+                                    value={formik.values.userEmail}
                                     onChange={formik.handleChange}
                                     onBlur={formik.handleBlur}
                                     className="block w-full border-0 px-2 py-1 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                 />
                             </div>
-                            {formik.touched.email && formik.errors.email ? <div className='text-xs text-red-500'>{formik.errors.email}</div> : null}
+                            {formik.touched.userEmail && formik.errors.userEmail ? <div className='text-xs text-red-500'>{formik.errors.userEmail}</div> : null}
                         </div>
                         <div>
                             <div className="flex items-center justify-between">
@@ -121,16 +127,16 @@ export default function Registration() {
                             </label>
                             <div className="mt-1">
                                 <input
-                                    id="confirmpassword"
-                                    name="confirmpassword"
+                                    id="password"
+                                    name="password"
                                     type="password"
-                                    value={formik.values.confirmpassword}
+                                    value={formik.values.password}
                                     onChange={formik.handleChange}
                                     onBlur={formik.handleBlur}
                                     className="block w-full border-0 px-2 py-1 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                 />
                             </div>
-                            {formik.touched.confirmpassword && formik.errors.confirmpassword ? <div className='text-xs text-red-500'>{formik.errors.confirmpassword}</div> : null}
+                            {formik.touched.password && formik.errors.password ? <div className='text-xs text-red-500'>{formik.errors.password}</div> : null}
                         </div>
                         <div>
                             <button

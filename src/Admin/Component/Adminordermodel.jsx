@@ -10,10 +10,16 @@ function AdminOrderModel({ order, onClose }) {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get(`http://localhost:8000/users/${order}`);
-                const dataOrder = response.data;
-                if (dataOrder.order && dataOrder.order.length > 0) {
-                    setOrderData(dataOrder.order[0]);
+                const response = await axios.get(`https://localhost:7114/api/Order/UserOrder?Id=${order}`,{
+                    headers:{
+                        Authorization: `Bearer ${localStorage.getItem("token")}`
+                    }
+                });
+                console.log(response.data.data)
+                const dataOrder = response.data.data;
+                
+                if (dataOrder) {
+                    setOrderData(dataOrder[0]);
                     setCartItems(dataOrder.cart);
                     setIsOrder(true);
                 } else {
@@ -41,12 +47,12 @@ function AdminOrderModel({ order, onClose }) {
                 <h2 className="text-xl mb-2">Order Details</h2>
                 {isOrder ? (
                     <>
-                        <p className="text-sm"><strong>Name:</strong> {orderData.name}</p>
-                        <p className="text-sm"><strong>Email:</strong> {orderData.email}</p>
-                        <p className="text-sm"><strong>Address:</strong> {orderData.address}</p>
-                        <p className="text-sm"><strong>Pincode:</strong> {orderData.pincode}</p>
-                        <p className="text-sm"><strong>Account Number:</strong> {orderData.account}</p>
-                        <p className="text-sm"><strong>Total Price:</strong> {orderData.price}</p>
+                        <p className="text-sm"><strong>Product:</strong> {orderData.productName}</p>
+                        <p className="text-sm"><strong>Quantity:</strong> {orderData.quantity}</p>
+                        {/* <p className="text-sm"><strong>Order Date:</strong> {orderData.orderDate}</p> */}
+                        <p className="text-sm"><strong>Total:</strong> {orderData.total}</p>
+                        {/* <p className="text-sm"><strong>Account Number:</strong> {orderData.account}</p>
+                        <p className="text-sm"><strong>Total Price:</strong> {orderData.price}</p> */}
                         
                     </>
                 ) : (

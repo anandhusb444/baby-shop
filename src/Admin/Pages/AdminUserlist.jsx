@@ -8,69 +8,110 @@ function AdminUserlist() {
     const [userData, setUserData] = useState([]);
     const [isUserListModel, setIsuserListModel] = useState(false);
     const [orderModel, setOrderModel] = useState(false);
-    const [order, setOrder] = useState(null); // Changed to `order` object
+    const [order, setOrder] = useState(null);
     const [userId, setUserId] = useState(null);
 
     useEffect(() => {
         const userListData = async () => {
-            const response = await axios.get('http://localhost:8000/users');
-            setUserData(response.data);
+            const response = await axios.get('https://localhost:7114/api/User', {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem("token")}`
+                }
+            });
+            setUserData(response.data.data);
         };
         userListData();
     }, []);
 
-    const handleViewCart = (id) => {
-        setIsuserListModel(true);
-        setUserId(id);
-    };
+    // const handleViewCart = (id) => {
+    //     setIsuserListModel(true);
+    //     setUserId(id);
+    // };
 
     const handleViewOrder = async (id) => {
         setOrderModel(true);
         setOrder(id);
-        
-
-    }
+    };
 
     const handleRemove = async (id) => {
-        await axios.delete(`http://localhost:8000/users/${id}`);
+        console.log(`This is the id ${id}`);
+        const res = await axios.delete(`https://localhost:7114/api/User/DeleteUser?Id=${id}`, {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem("token")}`
+            }
+        });
+
+        console.log(res.data);
         setUserData(userData.filter((item) => item.id !== id));
     };
 
+    const handleBlock = async (id)=>{
+        console.log(id)
+        const res = await axios.put(`https://localhost:7114/api/User/block${id}`,undefined,{
+            headers:{
+                Authorization: `Bearer ${localStorage.getItem("token")}`
+            }
+        })
+       
+        const isBlock = res.data.data
+        console.log(isBlock)
+    }
+
+    const handleUnBlock = async(id)=>{
+        const res = await axios.put(`https://localhost:7114/api/User/Unblock ${id}`,undefined,{
+            headers:{
+                Authorization: `Bearer ${localStorage.getItem("token")}`
+            }
+        })
+        console.log(res.data)
+    }
+
     return (
         <div>
-            <div className='flex justify-center mt-11'>
-                <table className='border-collapse border'>
-                    <thead>
-                        <tr>
-                            <th className='border-4 border-indigo-400 px-4 py-3'>id</th>
-                            <th className='border-4 border-indigo-400 px-4 py-3'>name</th>
-                            <th className='border-4 border-indigo-400 px-4 py-3'>email</th>
-                            <th className='border-4 border-indigo-400 px-4 py-3'>Cart</th>
-                            <th className='border-4 border-indigo-400 px-4 py-3'>Order</th>
-                            <th className='border-4 border-indigo-400 px-4 py-3'>Remove user</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {userData.map((item) =>
-                            <tr key={item.id}>
-                                <td className='border-4 border-indigo-400 border-opacity-4 px-4 py-3'><UserRound /></td>
-                                <td className='border-4 border-indigo-400 border-opacity-1 px-4 py-3'>{item.name}</td>
-                                <td className='border-4 border-indigo-400 border-opacity-1 px-4 py-3'>{item.email}</td>
-                                <td className='border-4 border-indigo-400 border-opacity-1 px-4 py-3'>
-                                    <button onClick={() => handleViewCart(item.id)} className='bg-slate-300 rounded-sm p-2 text-sm hover:scale-110 transition-transform duration-75 hover:rotate-6 hover:bg-gray-400 hover:text-white'>view cart</button>
-                                </td>
-                                <td className='border-4 border-indigo-400 border-opacity-2 px-4 py-3'>
-                                    <button onClick={() => handleViewOrder(item.id)} className='bg-slate-300 rounded-sm p-2 text-sm hover:scale-110 transition-transform duration-75 hover:rotate-6 hover:bg-gray-400 hover:text-white'>view order</button>
-                                </td>
-                                <td className='border-4 border-indigo-400 border-opacity-4 px-4 py-3'>
-                                    <button onClick={() => handleRemove(item.id)} className='bg-red-500 px-4 rounded-sm p-2 text-sm text-white hover:scale-110 transition-transform duration-75 hover:rotate-6 hover:bg-red-800 hover:text-white'>remove</button>
-                                </td>
+            <div className='flex justify-center mt-5'>
+                <div className="overflow-x-auto w-full">
+                    <table className='min-w-full bg-white border border-gray-200 rounded-lg shadow-lg'>
+                        <thead className='bg-indigo-600 text-white'>
+                            <tr>
+                                <th className='border-b border-gray-200 px-4 py-3 text-left text-sm font-semibold'>ID</th>
+                                <th className='border-b border-gray-200 px-4 py-3 text-left text-sm font-semibold'>Name</th>
+                                <th className='border-b border-gray-200 px-4 py-3 text-left text-sm font-semibold'>Email</th>
+                                <th className='border-b border-gray-200 px-4 py-3 text-left text-sm font-semibold'>Order</th>
+                                <th className='border-b border-gray-200 px-4 py-3 text-left text-sm font-semibold'>Block</th>
+                                <th className='border-b border-gray-200 px-4 py-3 text-left text-sm font-semibold'>UnBlock</th>
+                                <th className='border-b border-gray-200 px-4 py-3 text-left text-sm font-semibold'>Remove User</th>
                             </tr>
-                        )}
-                    </tbody>
-                </table>
-                {orderModel && <Adminordermodel onClose={() => setOrderModel(false)} order={order} />}
-                {isUserListModel && <AdminUserListModel onClose={() => setIsuserListModel(false)} userId={userId} />}
+                        </thead>
+                        <tbody>
+                            {userData.map((item) => (
+                                <tr key={item.id} className='hover:bg-gray-100 transition duration-200'>
+                                    <td className='border-b border-gray-200 px-4 py-1 pt-1 text-sm'>
+                                        <UserRound />
+                                    </td>
+                                    <td className='border-b border-gray-200 px-4 py-3 text-sm'>{item.userName}</td>
+                                    <td className='border-b border-gray-200 px-4 py-3 text-sm'>{item.userEmail}</td>
+                                    {/* <td className='border-b border-gray-200 px-4 py-3 text-sm'>
+                                        <button onClick={() => handleViewCart(item.id)} className='bg-blue-500 text-white rounded px-3 py-1 hover:scale-110 transition-transform duration-75 hover:bg-blue-600'>View Cart</button>
+                                    </td> */}
+                                    <td className='border-b border-gray-200 px-4 py-3 text-sm'>
+                                        <button onClick={() => handleViewOrder(item.id)} className='bg-green-500 text-white rounded px-3 py-1 hover:scale-110 transition-transform duration-75 hover:bg-green-600'>View Order</button>
+                                    </td>
+                                    <td className='border-b border-gray-200 px-4 py-3 text-sm'>
+                                        <button onClick={() => handleBlock(item.id)} className='bg-yellow-500 text-white rounded px-3 py-1 hover:scale-110 transition-transform duration-75 hover:bg-yellow-700'>Block</button>
+                                    </td>
+                                    <td className='border-b border-gray-200 px-4 py-3 text-sm'>
+                                        <button onClick={() => handleUnBlock(item.id)} className='bg-yellow-500 text-white rounded px-3 py-1 hover:scale-110 transition-transform duration-75 hover:bg-yellow-700'>UnBlock</button>
+                                    </td>
+                                    <td className='border-b border-gray-200 px-4 py-3 text-sm'>
+                                        <button onClick={() => handleRemove(item.id)} className='bg-red-500 text-white rounded px-3 py-1 hover:scale-110 transition-transform duration-75 hover:bg-red-900'>Remove</button>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                    {orderModel && <Adminordermodel onClose={() => setOrderModel(false)} order={order} />}
+                    {isUserListModel && <AdminUserListModel onClose={() => setIsuserListModel(false)} userId={userId} />}
+                </div>
             </div>
         </div>
     );
