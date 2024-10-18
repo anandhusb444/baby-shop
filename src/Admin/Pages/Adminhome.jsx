@@ -12,14 +12,18 @@ function AdminHomePage() {
 
     useEffect(()=>{
         const fetchData = async ()=>{
-            const response = await axios.get("http://localhost:8000/products")
-            setUserLength(response.data)
+            const response = await axios.get("https://localhost:7114/api/User",{
+              headers:{
+                Authorization: `Bearer ${localStorage.getItem("token")}`
+              }
+            })
+            setUserLength(response.data.data)
         }
 
 
         const fetchProduct = async ()=>{
-                const respones = await axios.get("http://localhost:8000/products")
-                setProuctLength(respones.data)  
+                const respones = await axios.get("https://localhost:7114/api/Products/All Products")
+                setProuctLength(respones.data.data)  
             }
         
         fetchData()

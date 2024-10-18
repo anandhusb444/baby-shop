@@ -16,15 +16,21 @@ function AdminProducts() {
   useEffect(() => {
     const fetchAdminData = async () => {
       try {
-        const product = await axios.get('http://localhost:8000/products')
-        setAdminProduct(product.data)
+        const product = await axios.get('http://localhost:5199/api/Products/All Products',{
+          headers:{
+            Authorization: `Bearer ${localStorage.getItem("token")}`
+          }
+        })
+        //console.log(product.data.data)
+        setAdminProduct(product.data.data)
       } catch {
         console.error("Some server issue occurred")
       }
     }
     fetchAdminData()
-  }, [adminProduct])
-
+  }, [])
+  
+ 
   const handleUpdate = (id,item) => {
     setProductId(id)
     setProduct(item)
@@ -39,7 +45,11 @@ function AdminProducts() {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:8000/products/${id}`)
+      await axios.delete(`https://localhost:7114/api/Products/Delete ${id}`,{
+        headers:{
+          Authorization: `Bearer ${localStorage.getItem("token")}`
+        }
+      })
       const remove = adminProduct.filter((item) => item.id !== id)
       setAdminProduct(remove)
       toast.error('product removed')
@@ -70,10 +80,12 @@ function AdminProducts() {
         {adminProduct.map((item) => (
           <div key={item.id} className="p-1 rounded overflow-hidden shadow-lg hover:scale-110 transition-transform duration-150 border-4 border-indigo-200">
             <img className="p-4 w-min h-60 object-cover" src={item.image} alt="Product Image" />
+           
             <div className="px-4 py-3 boreder-4 border-indigo-400">
               <div className="font-bold text-base mb-3">{item.title}</div>
               <p className="text-gray-700 text-sm">{item.description}</p>
               <p className='text-gray-700 text-sm'>${item.price}</p>
+              <p className='text-gray-700 text-sm'>ca{item.categoryId}</p>
             </div>
             <div className="px-4 py-3 flex space-x-3">
               <button onClick={() => handleDelete(item.id)} className="bg-blueberry-900 hover:bg-blueberry-800 text-white font-bold p-2 rounded-sm">

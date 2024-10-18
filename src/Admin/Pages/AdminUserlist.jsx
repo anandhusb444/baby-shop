@@ -2,6 +2,8 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import AdminUserListModel from '../Component/AdminUserListModel';
 import { UserRound } from 'lucide-react';
+import { Lock } from 'lucide-react';
+import { LockOpen } from 'lucide-react';
 import Adminordermodel from '../Component/Adminordermodel';
 
 function AdminUserlist() {
@@ -10,6 +12,9 @@ function AdminUserlist() {
     const [orderModel, setOrderModel] = useState(false);
     const [order, setOrder] = useState(null);
     const [userId, setUserId] = useState(null);
+    const [blockStatus,setBlockStatus] = useState([])
+    const [unBlock, setUnBlock] = useState([])
+
 
     useEffect(() => {
         const userListData = async () => {
@@ -53,8 +58,11 @@ function AdminUserlist() {
             }
         })
        
-        const isBlock = res.data.data
-        console.log(isBlock)
+        setBlockStatus((prve)=>({
+            ...prve,
+            [id]:res.data.data
+        }))
+
     }
 
     const handleUnBlock = async(id)=>{
@@ -63,7 +71,12 @@ function AdminUserlist() {
                 Authorization: `Bearer ${localStorage.getItem("token")}`
             }
         })
-        console.log(res.data)
+        let isBlock = res.data.data
+        console.log(isBlock)
+        setUnBlock((prev)=>({
+            ...prev,
+            [id]:res.data.data
+        }))
     }
 
     return (
@@ -97,10 +110,10 @@ function AdminUserlist() {
                                         <button onClick={() => handleViewOrder(item.id)} className='bg-green-500 text-white rounded px-3 py-1 hover:scale-110 transition-transform duration-75 hover:bg-green-600'>View Order</button>
                                     </td>
                                     <td className='border-b border-gray-200 px-4 py-3 text-sm'>
-                                        <button onClick={() => handleBlock(item.id)} className='bg-yellow-500 text-white rounded px-3 py-1 hover:scale-110 transition-transform duration-75 hover:bg-yellow-700'>Block</button>
+                                        <button onClick={() => handleBlock(item.id)} className='bg-yellow-500 text-white rounded px-3 py-1 hover:scale-110 transition-transform duration-75 hover:bg-yellow-700'>{blockStatus[item.id] ? <Lock/> : "Block"}</button>
                                     </td>
                                     <td className='border-b border-gray-200 px-4 py-3 text-sm'>
-                                        <button onClick={() => handleUnBlock(item.id)} className='bg-yellow-500 text-white rounded px-3 py-1 hover:scale-110 transition-transform duration-75 hover:bg-yellow-700'>UnBlock</button>
+                                        <button onClick={() => handleUnBlock(item.id)} className='bg-yellow-500 text-white rounded px-3 py-1 hover:scale-110 transition-transform duration-75 hover:bg-yellow-700'>{unBlock[item.id]  ? <LockOpen/> : "unblock"}</button>
                                     </td>
                                     <td className='border-b border-gray-200 px-4 py-3 text-sm'>
                                         <button onClick={() => handleRemove(item.id)} className='bg-red-500 text-white rounded px-3 py-1 hover:scale-110 transition-transform duration-75 hover:bg-red-900'>Remove</button>

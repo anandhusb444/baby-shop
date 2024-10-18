@@ -3,6 +3,7 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup'
 import { X } from 'lucide-react';
 import axios from 'axios';
+import toast from 'react-hot-toast';
 
 function Adminmodel({onClose, productId, product}) {
     
@@ -18,14 +19,55 @@ function Adminmodel({onClose, productId, product}) {
     const validationSchema = Yup.object({
         title:Yup.string().required('Enter the Product title'),
         description:Yup.string().required('Enter the Product Description'),
-        category:Yup.string().required('Enter the product category '),
+        categoryId:Yup.string().required('Enter the product category '),
         quantity:Yup.string().required('Enter the product quantity'),
         price:Yup.number().required('Enter the price'),
         image:Yup.string().required('Enter the product image')
     })
 
     const onSubmit = async (values)=>{
-        const respones = await axios.put(`http://localhost:8000/products/${productId}`,values)
+        console.log(productId)
+        console.log(values.categoryId)
+       
+        try{
+
+            const formData = new FormData()
+
+            formData.append('title',values.title)
+            formData.append('description',values.description)
+            formData.append('price',values.price)
+            formData.append('categoryId',values.categoryId)
+            formData.append('quantity',values.quantity)
+            formData.append('image',values.image)
+
+            const respones = await axios.put(`https://localhost:7114/api/Products/UpdateProduct${productId}`,formData,{
+                headers:{
+                    Authorization: `Bearer ${localStorage.getItem("token")}`,
+                }
+            
+            })
+            
+            if(respones.data)
+            {
+                toast.success("Updated The Products")
+            }
+            else
+            {
+                toast.error("Error updateing the Product")
+            }
+            
+        }
+        catch(error){
+            if(error.respones)
+            {
+                toast.error("Adde the image")
+            }
+            toast.error(error.respones.data)
+            console.log(error.respones.data)
+            console.log(error)
+        }
+        
+        
         //console.log(respones.data)
         onClose()
     }
@@ -33,9 +75,9 @@ function Adminmodel({onClose, productId, product}) {
     const initialValues = ({
         title:product.title,
         description:product.description,
-        category:product.category,
-        quantity:product.quantity,
         price:product.price,
+        categoryId:product.categoryId ,
+        quantity:product.quantity,  
         image:product.image
 
     })
@@ -45,7 +87,8 @@ function Adminmodel({onClose, productId, product}) {
         validationSchema, 
         onSubmit
     })
-  
+   
+     //console.log(product)
 
   return (
     <div ref={modelRef} onClick={isModelClose} className='fixed inset-0 bg-black bg-opacity-30 backdrop-blur-sm flex justify-center items-center'>
@@ -81,15 +124,15 @@ function Adminmodel({onClose, productId, product}) {
 
                     <input
                     type='text'
-                    id='category'
-                    name='category'
-                    value={formik.values.category}
+                    id='categoryId'
+                    name='categoryId'
+                    value={formik.values.categoryId}
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                     placeholder='Enter the Category'
                     className='w-60 h-9 px-3 py-3 text-black text-sm font-medium border-gray-300 rounded-sm'
                     />
-                    {formik.touched.category && formik.errors.category ? <div className='text-md text-red-800'>{formik.errors.category}</div> : null}
+                    {formik.touched.categoryId && formik.errors.categoryId ? <div className='text-md text-red-800'>{formik.errors.categoryId}</div> : null}
 
                    <input
                     type='text'
@@ -116,11 +159,14 @@ function Adminmodel({onClose, productId, product}) {
                     {formik.touched.price && formik.errors.price ? <div className='text-red-800 text-md'>{formik.errors.price}</div> : null}
 
                     <input
-                    type='text'
+                    type='file'
                     id='image'
                     name='image'
-                    value={formik.values.image}
-                    onChange={formik.handleChange}
+                    //value={formik.values.image}
+                    onChange={(even)=>{
+                        const file = even.currentTarget.files[0];
+                        formik.setFieldValue('image',file)
+                    }}
                     onBlur={formik.handleBlur}
                     placeholder='Enter the Image'
                     className='w-60 h-9 px-3 py-3 text-black text-sm font-medium border-gray-300 rounded-sm'

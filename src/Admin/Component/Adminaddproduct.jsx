@@ -3,6 +3,7 @@ import { X } from 'lucide-react';
 import { Formik, useFormik } from 'formik';
 import * as Yup from 'yup'
 import axios from 'axios';
+import toast from 'react-hot-toast';
 
 function Adminaddproduct({onClose,productId,product}) {
   
@@ -21,25 +22,64 @@ function Adminaddproduct({onClose,productId,product}) {
         title:Yup.string().required('Enter the Title'),
         description:Yup.string().required('Enter the Description'),
         price:Yup.string().required('Enter the Price'),
-        category:Yup.string().required('Enter the category'),
+        categoryId:Yup.string().required('Enter the category'),
         quantity:Yup.string().required('Enter the quantity '),
-        image:Yup.string().required('Enter the image URL')
+        image:Yup.mixed().required('Enter the image URL')
 
     })
 
     const onSubmit = async (values)=>{
-        axios.post(`http://localhost:8000/products/`,values)
-         onClose()
+      try
+      {
+        const formData = new FormData();
+        
+        formData.append('title',values.title);
+        formData.append('description',values.description);
+        formData.append('price',values.price);
+        formData.append('categoryId',values.categoryId );
+        formData.append('quantity',values.quantity);
+        formData.append('img',values.image)
+
+        const res = await axios.post(`https://localhost:7114/api/Products/AddProducts`,formData,{
+          headers:{
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          }
+        })
+
+        if(res.data.data === true && res.data.message === "Product as been added")
+        {
+          toast.success("Product added SuccesFuly")
+        }
+        else if(res.data.data === false && res.data.message === "product already Been exist" )
+        {
+          toast.error("Product Already Exist")
+        }
+        
+        console.log(res.data)
+        onClose()
+        //window.location.reload();
+
+
+      }
+      catch(error)
+      {
+        console.error('Error posting product:', error);
+        toast.error(`Error: ${error.response?.data?.message || 'An error occurred'}`);
+        console.log(error.response)
+
+      }
+        
+        
     }
 
 
     const initialValues = {
-      title:'',
-      description:'',
-      category:'',
-      quantity:'',
-      image:''
-  }
+      title:  '',
+      description: '',
+      categoryId: '', // Set the initial categoryId if editing
+      quantity: '',
+      image: undefined,
+  };
 
     const formik = useFormik({
         initialValues,
@@ -89,7 +129,7 @@ function Adminaddproduct({onClose,productId,product}) {
 
               <div>
                 <input
-                  type='text'
+                  type='number'
                   id='price'
                   name='price'
                   placeholder='Product price'
@@ -104,15 +144,15 @@ function Adminaddproduct({onClose,productId,product}) {
               <div>
                 <input
                   type='text'
-                  id='category'
-                  name='category'
+                  id='categoryId'
+                  name='categoryId'
                   placeholder='Product category'
-                  value={formik.values.category}
+                  value={formik.values.categoryId}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                   className='w-full px-2 py-1 text-black border border-gray-300 rounded-sm focus:outline-none focus:ring-2 focus:ring-blue-500'
                 />
-                {formik.touched.category && formik.errors.category ? <div className='text-md text-red-800 text-sm'>{formik.errors.category}</div> : null}
+                {formik.touched.categoryId && formik.errors.categoryId ? <div className='text-md text-red-800 text-sm'>{formik.errors.categoryId}</div> : null}
               </div>
 
               <div>
@@ -131,12 +171,15 @@ function Adminaddproduct({onClose,productId,product}) {
 
               <div>
                 <input
-                  type='text'
+                  type='file'
                   id='image'
                   name='image'
                   placeholder='Image URL'
-                  value={formik.values.image}
-                  onChange={formik.handleChange}
+                  //value={formik.values.image}
+                  onChange={(event)=>{
+                    const file = event.currentTarget.files[0];
+                    formik.setFieldValue('image',file)
+                  }}
                   onBlur={formik.handleBlur}
                   className='w-full px-2 py-1 text-black border border-gray-300 rounded-sm focus:outline-none focus:ring-2 focus:ring-blue-500'
                 />
