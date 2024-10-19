@@ -55,7 +55,9 @@ export default function Login() {
           else
             {
                 navigate('/')
+                localStorage.setItem("token",token)
                 localStorage.setItem("id", Id)
+
                 setIsUser(true)
                 setIsCart(true)
                 toast.success('Success')

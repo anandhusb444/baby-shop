@@ -16,8 +16,8 @@ function ConterxtProvider({children}) {
     const [isUser,setIsUser] = useState(null)
     const [isCart,setIsCart] = useState(null)
 
-    //console.log("is login from the cartConxtext", isLogin)
-
+    
+    
     useEffect(() => {
       const storedCart = JSON.parse(localStorage.getItem('cart'));
       if (storedCart) {
@@ -29,7 +29,7 @@ function ConterxtProvider({children}) {
       localStorage.setItem('cart', JSON.stringify(cart));
     }, [cart]);
   
-    const clearCart = () => {
+    const clearCart = () => { 
       setCart([]);
       localStorage.removeItem('cart');
     };
@@ -42,52 +42,136 @@ function ConterxtProvider({children}) {
       }
     }, [id]);
 
+    const addCart = async (item) => {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        toast.error("User is not logged in");
+        return;
+      }
+    
+      if (id) {
+        const itemExists = cart.some(cartItem => cartItem.id === item.id);
+        
+        if (itemExists) { 
+          toast.error('Item already added');
+        } else {
+          try {
+            console.log(item.id)
+            const response = await axios.post(`https://localhost:7114/api/Cart/AddtoCart?productId=${item.id}`,{},{
+              headers:{
+                Authorization:`Bearer ${token}`
+              }
+            })
+    
+            console.log(response.data);
+    
+            if (response.status === 200) {
+              const updatedCart = [...cart, { ...item, quantity: 1 }];
+              setCart(updatedCart);
+                        localStorage.setItem('cart', JSON.stringify(updatedCart)); // Save to localStorage
 
-    const addCart = (item)=>{
-      if(id){
-            const itemExists = cart.some(cartItem => cartItem.id === item.id);
-            if(itemExists){
-              toast.error('already added')
+              toast.success('Added to cart');
+            } else {
+              toast.error('Failed to add to cart');
             }
-            else{
-              const ubdatedCart = [...cart,item]
-              axios.patch(`http://localhost:8000/users/${id}`,{"cart":ubdatedCart})
-              toast.success('added to cart')
-              setCart(ubdatedCart)
-            }
-      }
-      else{
-        toast.error('user is not login')
-      }
-      
-      
+          } catch (error) {
+            console.error('Error adding to cart:', error);
+            toast.error('Failed to add to cart');
           }
+        }
+      } else {
+        toast.error('User is not logged in');
+      }
+    };
+    
 
-          // console.log("cart length from the cartcontext",cart.length)
 
     
-    const removeFromCart = (elem)=>{
-      const remove = cart.filter((item)=> item.id !== elem)
-      axios.patch(`http://localhost:8000/users/${id}`,{"cart":remove})
-      toast.error('item removed')
-      setCart(remove)
+    const removeFromCart = async (elem)=>{
+      // remove = cart.filter((item)=> item.id !== elem)
+      const res = await axios.delete(`https://localhost:7114/api/Cart/RemoveFromCart?ProductId=${elem}`,{
+        headers:{
+          Authorization: `Bearer ${localStorage.getItem("token")}`
+        }
+      })
+      if(res.status === 200)
+      {
+        toast.error('item removed')
+        setCart(clearCart)
+        const updatedCart = cart.filter(item => item.id !== elem);
+        setCart(updatedCart);
+
+      }
+      console.log(res)
+      //setCart(res.data.data)
     }
 
-    const incrementCart = (item,num)=>{// thsi will add the cart product 
-      let increment = cart.map(elem=>{
-        return item===elem.id ? {...elem,quantity:parseInt(elem.quantity) + num}:elem
-      })
-      axios.patch(`http://localhost:8000/users/${id}`,{"cart":increment})
-      setCart(increment)
-    }
+    
 
-    const decermentCart = (item,num)=>{// this will decerase the cart product by the button
-      let decerment = cart.map(elem=>{
-        return item===elem.id ?{...elem,quantity:parseInt(elem.quantity) - num} : elem 
+    // const incrementCart = (item,num)=>{
+     
+    //   let increment = cart.map(elem=>{
+    //     return item===elem.id ? {...elem,quantity:parseInt(elem.quantity) + num}:elem
+    //   })
+    //   axios.patch(`http://localhost:8000/users/${id}`,{"cart":increment})
+    //   setCart(increment)
+    // }
+    const incrementCart = async (item) => {
+      console.log(localStorage.getItem("token"))
+
+      try {
+        const response = await axios.put(`https://localhost:7114/api/Cart/increaseQty?ProductId=${item}`,{},{
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`
+          }
+        });
+        console.log(response)
+        if (response.status === 200) {
+          setCart((prevCart) =>
+            prevCart.map((item) =>
+              item.id === id ? { ...item, quantity: item.quantity + 1 } : item
+            )
+          );
+
+          // const updatedCart = response.data; // Assuming the API returns the updated cart
+          //setCart(updatedCart); // Update the local cart state
+          //localStorage.setItem('cart', JSON.stringify(updatedCart)); // Optionally update localStorage
+          //toast.success('Item Added');
+        } else {
+          toast.error('Failed to increment item quantity');
+        }
+      } catch (error) {
+        console.error('Error incrementing item quantity:', error);
+        toast.error('Error incrementing item quantity');
+      }
+    };
+    
+
+
+    const decermentCart = async (item)=>{
+     try
+     {
+      const respones =  await axios.put(`https://localhost:7114/api/Cart/DecreaseQty?productId=${item}`,{},{
+        headers:{
+          Authorization: `Bearer ${localStorage.getItem("token")}`
+        }
+        
       })
-      .filter((elem)=>elem.quantity >= 0 )// remove the product from the cart is the quantity is less than 0 
-       axios.patch(`http://localhost:8000/users/${id}`,{"cart":decerment})
-       setCart(decerment)
+     
+      console.log(respones.data)
+      if(respones.data.status === 200)
+      {
+        setCart((prevCart) =>
+          prevCart.map((item) =>
+            item.id === id ? { ...item, quantity: item.quantity - 1 } : item
+          )
+        )
+        }
+     }
+     catch(error)
+     {
+      console.log(error.respones)
+     }
     }
 
     
@@ -129,7 +213,7 @@ function ConterxtProvider({children}) {
               isUser,
               isCart,
               setIsCart,
-              clearCart
+              //clearCart
               }}>
         {children}
         </ShopContext.Provider>
