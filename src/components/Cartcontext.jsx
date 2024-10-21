@@ -6,116 +6,124 @@ export const ShopContext = createContext()
 
 function ConterxtProvider({children}) {
 
-  const id = localStorage.getItem("id")// getting the id that is stored in the local storge using the getItem
-  //console.log(id)
-
+  const id = localStorage.getItem("id")
 
     const [cart, setCart] = useState([])
+    const [wish, setWish] = useState([])
     const [inputState, setInputState] = useState("")
     const [isAdmin,setIsAdmin] = useState(null)
     const [isUser,setIsUser] = useState(null)
     const [isCart,setIsCart] = useState(null)
 
-    
-    
-    useEffect(() => {
-      const storedCart = JSON.parse(localStorage.getItem('cart'));
-      if (storedCart) {
-        setCart(storedCart);
-      }
-    }, []);
-  
-    useEffect(() => {
-      localStorage.setItem('cart', JSON.stringify(cart));
-    }, [cart]);
-  
-    const clearCart = () => { 
-      setCart([]);
-      localStorage.removeItem('cart');
-    };
+    // useEffect(()=>{
+    //   fetchCart()
 
-    useEffect(() => {
-      if (id) {
-        axios.get(`http://localhost:8000/users/${id}`).then((response) => {
-          setCart(response.data.cart || []);
-        });
-      }
-    }, [id]);
+    // },[cart])
+  
 
-    const addCart = async (item) => {
-      const token = localStorage.getItem("token");
-      if (!token) {
-        toast.error("User is not logged in");
-        return;
-      }
     
-      if (id) {
-        const itemExists = cart.some(cartItem => cartItem.id === item.id);
-        
-        if (itemExists) { 
-          toast.error('Item already added');
-        } else {
-          try {
-            console.log(item.id)
-            const response = await axios.post(`https://localhost:7114/api/Cart/AddtoCart?productId=${item.id}`,{},{
+    const addCart = async(item)=>{
+      try
+        {
+          const res = await axios.post(`https://localhost:7114/api/Cart/AddtoCart?productId=${item.id}`,{},{
+            headers:
+            {
+              Authorization: `Bearer ${localStorage.getItem("token")}`
+            }
+          })
+          if(res.data.data === "Done")
+            {
+              toast.success("Add to Cart")
+              fetchCart()
+              setCart()
+              
+            }
+          console.log(res.data)
+          
+          //setCart()
+        }
+      catch(error)
+        {
+          console.log(error.data)
+          if(error.response.data.message === "Product is out of stock")
+            {
+              toast.error("Out Of Stock")
+            }
+          else if(error.response.status === 401)
+            {
+              toast.error("Please Login")
+            }
+          
+        }
+    }
+    
+     
+  
+      const fetchCart = async () => {
+        try {
+          if (cart.length === 0 && id) { 
+            const response = await axios.get(`https://localhost:7114/api/Cart/Cart`,{
               headers:{
-                Authorization:`Bearer ${token}`
+                Authorization: `Bearer ${localStorage.getItem("token")}`
+              }
+            });
+            console.log(response.data.data)
+            setCart(response.data.data)
+            console.log(response.data.data.total)
+            //setTotal(response.data.data.total)
+          }
+        } catch (error) {
+          console.error("Error fetching cart:", error);
+        }
+      };
+    
+      
+
+    
+    
+
+    const addWishlist = async (productId)=>
+      {
+        try
+          {
+            const respones = await axios.post(`https://localhost:7114/api/WhishList/AddToWhishList?productId=${productId}`,{},{
+              headers:{
+                Authorization: `Bearer ${localStorage.getItem("token")}`
               }
             })
-    
-            console.log(response.data);
-    
-            if (response.status === 200) {
-              const updatedCart = [...cart, { ...item, quantity: 1 }];
-              setCart(updatedCart);
-                        localStorage.setItem('cart', JSON.stringify(updatedCart)); // Save to localStorage
-
-              toast.success('Added to cart');
-            } else {
-              toast.error('Failed to add to cart');
-            }
-          } catch (error) {
-            console.error('Error adding to cart:', error);
-            toast.error('Failed to add to cart');
+            console.log(respones.data)
+            
+            setWish(respones.data)
+            
           }
-        }
-      } else {
-        toast.error('User is not logged in');
+        catch(error)
+          {
+            console.log(error.respones)
+          }
+       
       }
-    };
-    
 
-
-    
-    const removeFromCart = async (elem)=>{
-      // remove = cart.filter((item)=> item.id !== elem)
-      const res = await axios.delete(`https://localhost:7114/api/Cart/RemoveFromCart?ProductId=${elem}`,{
-        headers:{
-          Authorization: `Bearer ${localStorage.getItem("token")}`
-        }
-      })
-      if(res.status === 200)
-      {
-        toast.error('item removed')
-        setCart(clearCart)
-        const updatedCart = cart.filter(item => item.id !== elem);
-        setCart(updatedCart);
-
-      }
-      console.log(res)
-      //setCart(res.data.data)
-    }
-
-    
-
-    // const incrementCart = (item,num)=>{
+      const removeFromCart = async (elem)=>{
+        const res = await axios.delete(`https://localhost:7114/api/Cart/RemoveFromCart?ProductId=${elem}`,{
+          headers:{
+            Authorization: `Bearer ${localStorage.getItem("token")}`
+          }
+        })
+        if(res.status === 200)
+        {
      
-    //   let increment = cart.map(elem=>{
-    //     return item===elem.id ? {...elem,quantity:parseInt(elem.quantity) + num}:elem
-    //   })
-    //   axios.patch(`http://localhost:8000/users/${id}`,{"cart":increment})
-    //   setCart(increment)
-    // }
+          setCart(pr=>pr.filter(val=>val.id!=elem))
+          //console.log("removed");
+          
+        }
+        console.log(res)
+      }
+
+     
+        
+    
+
+    
     const incrementCart = async (item) => {
       console.log(localStorage.getItem("token"))
 
@@ -127,11 +135,7 @@ function ConterxtProvider({children}) {
         });
         console.log(response)
         if (response.status === 200) {
-          setCart((prevCart) =>
-            prevCart.map((item) =>
-              item.id === id ? { ...item, quantity: item.quantity + 1 } : item
-            )
-          );
+
 
           // const updatedCart = response.data; // Assuming the API returns the updated cart
           //setCart(updatedCart); // Update the local cart state
@@ -161,11 +165,7 @@ function ConterxtProvider({children}) {
       console.log(respones.data)
       if(respones.data.status === 200)
       {
-        setCart((prevCart) =>
-          prevCart.map((item) =>
-            item.id === id ? { ...item, quantity: item.quantity - 1 } : item
-          )
-        )
+        fetchCart()
         }
      }
      catch(error)
@@ -198,6 +198,7 @@ function ConterxtProvider({children}) {
         
      
         <ShopContext.Provider value={{addCart,
+          addWishlist,
           cart, 
           setCart,
            id, 
@@ -213,7 +214,12 @@ function ConterxtProvider({children}) {
               isUser,
               isCart,
               setIsCart,
-              //clearCart
+              wish,
+              setWish,
+              //fetchCart
+              
+
+              // clearCart
               }}>
         {children}
         </ShopContext.Provider>

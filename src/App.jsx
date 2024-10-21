@@ -20,6 +20,7 @@ import AdminUserlist from "./Admin/Pages/AdminUserlist";
 import AdminHomePage from "./Admin/Pages/Adminhome";
 import Footer from "./Pages/Footer";
 import ContactUs from "./Pages/Contactus";
+import Wishlist from "./components/Wishlist";
 
 export default function App() {
   return (
@@ -36,6 +37,7 @@ export default function App() {
         {/* <Route path="/shop" element={<Products/>}/> */}
 
         {/*</Routes> */}
+        
 
         <Routes>
           <Route path="/" element={<Layout />}>
@@ -43,8 +45,10 @@ export default function App() {
             
               <Route path="/shop" element={<Shop />} />
               <Route path="/cart" element={<Cart />} />
+              <Route path="/Wish" element={<Wishlist/>}/>
               <Route path="/about" element={<About />} />
               <Route path="/contactUs" element={<ContactUs/>}/>
+              
             </Route>
 
           <Route path="/login" element={<Login />} />

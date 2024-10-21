@@ -4,11 +4,12 @@ import { ShopContext } from './Cartcontext';
 import { UserRound} from "lucide-react";
 import toast from 'react-hot-toast';
 import LogoutModel from '../User/LogoutModel';
+import { Heart } from "lucide-react"; 
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [modal,setmodal] = useState(false)
-  const { cart, handleChangeIput, inputState,isUser,setIsUser,setIsCart,isCart,} = useContext(ShopContext);
+  const { cart, handleChangeIput, inputState,isUser,setIsUser,setIsCart,isCart,wish} = useContext(ShopContext);
   //console.log("is login from the Navbar",isLogin)
 
   const toggleMenu = () => {
@@ -38,7 +39,7 @@ const Navbar = () => {
     setIsCart(false)
   }
 
-  // console.log(cart.length)
+  // console.log(cart.)
 
   return (
     <nav className="bg-white shadow-lg py-3 border-4 border-indigo-200">
@@ -92,6 +93,7 @@ const Navbar = () => {
             />
           </form>
           <div className="hidden sm:flex sm:items-center">
+          
             <NavLink
               to={'/cart'}
               className="text-gray-700 hover:text-blue-800 px-3 py-2 rounded-md text-sm font-medium transition duration-300 flex items-center hover:underline relative"
@@ -108,6 +110,17 @@ const Navbar = () => {
               ) : null}
 
             </NavLink>
+            <NavLink 
+            to={'/Wish'}
+            className="text-gray-700 hover:text-blue-800 px-3 py-2 rounded-md text-sm font-medium transition duration-300 flex items-center hover:underline relative"
+
+            >
+              <span className="absolute top-0 right-0 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-white bg-blue-900 rounded-full">
+                  {wish.length}
+                </span>
+              <Heart/>
+
+            </NavLink>
            
             
             {isUser ? ( <UserRound
@@ -115,6 +128,7 @@ const Navbar = () => {
             
             />) 
             : (
+              
                <NavLink
               to={'/register'}
               className="text-gray-700 hover:text-blue-800 px-3 py-2 rounded-md text-sm font-medium transition duration-300 hover:underline"

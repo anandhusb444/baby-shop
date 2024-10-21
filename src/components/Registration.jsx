@@ -31,15 +31,16 @@ export default function Registration() {
         try {
             console.log(values)
             const respones = await axios.post('https://localhost:7114/api/User/Register',values);
-            console.log(respones.data)
-            // const res = respones.data
+            console.log(respones)
+            const res = respones.data
             //console.log(res)
                 if(res.message === "User already existed")
                 {
                     toast.error("user alreay existed")
                 }
-                else
+                else if(res.statusCode === 200)
                 {
+                    toast.success("Successfully Registered")
                     setTimeout(()=> navigate('/Login'),1000)
                 }
         } 
